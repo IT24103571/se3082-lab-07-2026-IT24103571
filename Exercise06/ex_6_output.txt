@@ -1,0 +1,14 @@
+Root filled array with values 1 to 1000000
+Rank 0: local_sum = 31250125000, prefix_sum = 31250125000, sum_before_me = 0
+Rank 1: local_sum = 93750125000, prefix_sum = 125000250000, sum_before_me = 31250125000
+Rank 2: local_sum = 156250125000, prefix_sum = 281250375000, sum_before_me = 125000250000
+Rank 2: expected prefix = 281250375000, correct? = YES
+Rank 1: expected prefix = 125000250000, correct? = YES
+Rank 3: local_sum = 218750125000, prefix_sum = 500000500000, sum_before_me = 281250375000
+Rank 3: expected prefix = 500000500000, correct? = YES
+
+[Scan] Last rank prefix sum = 500000500000
+[Scan] Expected total        = 500000500000
+[Scan] Correct?              = YES
+[Scan] Time                  = 0.0112 sec
+Rank 0: expected prefix = 31250125000, correct? = YES

@@ -1,0 +1,53 @@
+EXERCISE 7
+
+1. COMPARISON OF THE SIX PROGRAMS
+
++------------+----------------------------+--------------------------+-----------------------------+-----------------------------+
+| Exercise   | Collectives Used           | Array Allocation         | Manual Summation on Root?   | Final Result Available     |
++------------+----------------------------+--------------------------+-----------------------------+-----------------------------+
+| 1 - Bcast  | MPI_Bcast                  | Full array on all       | Yes                         | Root only                  |
+| 2 - Scatter| MPI_Scatter                | Root full, others chunk | Yes                         | Root only                  |
+| 3 - Gather | MPI_Scatter, MPI_Gather    | Root full, others chunk | Yes                         | Root only                  |
+| 4 - Reduce | MPI_Scatter, MPI_Reduce    | Root full, others chunk | No                          | Root only                  |
+| 5 - Allreduce| MPI_Scatter, MPI_Allreduce| Root full, others chunk| No                          | All processes              |
+| 6 - Scan   | MPI_Scatter, MPI_Scan      | Root full, others chunk | No                          | Each process gets prefix   |
++------------+----------------------------+--------------------------+-----------------------------+-----------------------------+
+
+
+2. TIMING RESULTS FOR 4 PROCESSES
+
++----------------+-------------------+
+| Exercise       | Time (seconds)    |
++----------------+-------------------+
+| Bcast          | 0.0129            |
+| Scatter        | 0.0046            |
+| Gather         | 0.0045            |
+| Reduce         | 0.0071            |
+| Allreduce      | 0.0064            |
+| Scan           | 0.0113            |
++----------------+-------------------+
+
+Observation:
+For this particular 4-process run, Gather had the lowest measured
+time (0.0045 seconds), closely followed by Scatter (0.0046 seconds).
+The execution times can vary depending on the system and number of
+processes.
+
+
+3. THINKING QUESTION
+
+When would you choose Scan instead of Allreduce?
+
+MPI_Scan should be used when each process needs a cumulative result
+based on itself and all processes before it.
+
+For example, MPI_Scan can be used to calculate global offsets,
+running totals, cumulative distributions, or global index positions.
+
+MPI_Allreduce should be used when every process needs the same final
+global result.
+
+Therefore:
+
+- MPI_Scan -> Each process gets its own cumulative result.
+- MPI_Allreduce -> Every process gets the same final result.
